@@ -49,9 +49,10 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
         
     - name: Deploy to EB
-      uses: DorianLatchague/beanstalk-deploy@3.3
+      uses: DorianLatchague/beanstalk-deploy@3.4
       with: 
         dockerrun_json: ${{ steps.read-file.outputs.content }}
+        ecr_repository: ${{ secrets.ECR_REPOSITORY }}
         ecr_registry: ${{ steps.login-ecr.outputs.registry }}
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
