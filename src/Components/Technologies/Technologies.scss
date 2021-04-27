@@ -1,0 +1,252 @@
+@import '../../scss-exports/colors';
+
+/* Change this to change the appearance of the hexagons */
+$hex-height: 80px; 
+$hex-width: calc(80px / 1.73 );
+$hex-transition: all .2s ease;
+$modal-height: 400px;
+$modal-width: calc(400px / 1.73 );
+
+/* Colors */
+$color-hex-primary: #d78521;
+$color-hex-secondary: $foreground;
+
+.honeycomb {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0;
+    padding-bottom: 60px;
+}
+
+.hexagon-tile {
+    position: relative;
+    display: inline-block;
+    margin: 2px 14px;
+    background-color: $color-hex-primary;
+    text-align: center;
+    cursor: pointer;
+    width: $hex-width;
+    height: $hex-height;
+    border-radius: 20%/5%;
+
+    &::after,&::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: $hex-width;
+        height: $hex-height;
+        border-radius: 20%/5%;
+    }
+
+    &::after {
+        background-color: inherit;
+        content: "";
+        position: absolute;
+        left: 0;
+        transform: rotate(60deg);
+    }
+
+    &::before {
+        background-color: inherit;
+        content: "";
+        position: absolute;
+        left: 0;
+        transform: rotate(-60deg);
+    }
+    
+    &:hover, &:active, &.active {
+        background-color: $color-hex-secondary;
+    }
+
+    &:nth-child(odd) {
+        top: 41px;
+    }
+    
+    > .tech-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $color-hex-secondary;
+        font-size: 50px;
+        line-height: 1.2;
+        z-index: 1;
+    }
+    
+    &:hover > .tech-icon , &:active > .tech-icon , &.active > .tech-icon {
+        color: $color-hex-primary;
+    }
+
+    > .tech-modal {
+        position: fixed;
+        background-color: $color-hex-secondary;
+        z-index: 3;
+        width: $hex-width;
+        height: $hex-height;
+        border-radius: 20%/5%;
+        transition: all .5s ease;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+
+        &::after,&::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: $hex-width;
+            height: $hex-height;
+            border-radius: 20%/5%;
+            z-index: 3;
+            transition: all .5s ease;
+        }
+
+        &::after {
+            background-color: inherit;
+            content: "";
+            position: absolute;
+            left: 0;
+            transform: rotate(60deg);
+        }
+    
+        &::before {
+            background-color: inherit;
+            content: "";
+            position: absolute;
+            left: 0;
+            transform: rotate(-60deg);
+        }
+
+        &.enter-active {
+            width: $modal-width;
+            height: $modal-height;
+        }
+
+        &.enter-active::after,&.enter-active::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: $hex-width;
+            height: $hex-height;
+            border-radius: 20%/5%;
+            z-index: 3;
+            transition: all .5s ease;
+            width: $modal-width;
+            height: $modal-height;
+        }
+
+        &.enter-active::after {
+            background-color: inherit;
+            content: "";
+            position: absolute;
+            left: 0;
+            transform: rotate(60deg);
+        }
+    
+        &.enter-active::before {
+            background-color: inherit;
+            content: "";
+            position: absolute;
+            left: 0;
+            transform: rotate(-60deg);
+        }
+
+        &.enter-done {
+            width: $modal-width;
+            height: $modal-height;
+            
+            > .modal-content {
+                display: flex;
+            }
+        }
+
+        &.enter-done::after,&.enter-done::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: $modal-width;
+            height: $modal-height;
+            border-radius: 20%/5%;
+            z-index: 3;
+            transition: all .5s ease;
+        }
+
+        &.enter-done::after {
+            background-color: inherit;
+            content: "";
+            position: absolute;
+            left: 0;
+            transform: rotate(60deg);
+        }
+    
+        &.enter-done::before {
+            background-color: inherit;
+            content: "";
+            position: absolute;
+            left: 0;
+            transform: rotate(-60deg);
+        }
+
+        > .modal-content {
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            color: white;
+            line-height: 1.2;
+            z-index: 4;
+            display: none;
+
+            > h3 {
+                font-size: 28px;
+                color: $color-hex-primary;
+                margin-bottom: 15px;
+            }
+
+            > p {
+                font-size: 14px;
+            }
+
+            > .close-btn {
+                border-radius: 50%;
+                position: absolute;
+                padding: 5px 12px;
+                color: $color-hex-primary;
+                border: 0;
+                font-size: 30px;
+                top: 10px;
+                background-color: $color-hex-secondary;
+                right: 10px;
+                cursor: pointer;
+
+                &:focus {
+                    outline: 0;
+                }
+
+                &:hover {
+                    background-color: $color-hex-primary;
+                    color: #e8ebf7 !important; 
+                }
+            }
+        }
+    }
+}
+
+.modal-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $color-hex-primary;
+    opacity: .7;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 2;
+}
